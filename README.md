@@ -1,4 +1,4 @@
-dog_breed_classifier
+dog breed classifier
 ==============================
 
 A short description of the project.
