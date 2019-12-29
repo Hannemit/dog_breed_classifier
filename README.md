@@ -1,7 +1,7 @@
 dog breed classifier
 ==============================
 
-A short description of the project.
+In this project we use a CNN to predict dog breeds. In total, we have 133 classes (the breeds) and a new images is classified as one of these. Additionally, we will first detect whether a human is present in the image (if so, we'll output a slightly different figure which shows the closest dog breeds to that human). 
 
 Project Organization
 ------------
