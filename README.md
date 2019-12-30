@@ -79,7 +79,12 @@ Project Organization
 * Make sure the data is downloaded and in the correct place
 * run `main.py` by calling `python main.py` from the root of the project. Make sure to set some of the parameters at the start of the file e.g. the number of epochs to run for and whether to train or use an existing model
 
+when running `main.py`, we 
+1. either train a model or load a previously trained model
+2. print out the accuracy and loss of this model on test data
+3. predict breeds of some random images using the model, the predict outputs are saved in `src/visualization`
 
+When wanting to test a particular model, we can also directly call `python src/models/test_model models/my_model` where the argument should be the path to a trained model. This will print out the accuracy and loss for this model on the test data. 
 
 ## Requirements
 
@@ -100,6 +105,8 @@ then, install the requirements
 
 `pip install -r requirements.txt`
 
+If an error for installing torch occurs, see trouble shooting.
+
 ## The data
 #### dog data
 
@@ -114,9 +121,10 @@ then, install the requirements
 
 ## Troubleshooting
 
-If there are problems installing `torch` (as there were for me initially), try this:  
+* If there are problems installing `torch` (as there were for me initially), try this:  
 `pip3 install https://download.pytorch.org/whl/cu90/torch-1.1.0-cp36-cp36m-win_amd64.whl`  
-`pip3 install https://download.pytorch.org/whl/cu90/torchvision-0.3.0-cp36-cp36m-win_amd64.whl`
-
+`pip3 install https://download.pytorch.org/whl/cu90/torchvision-0.3.0-cp36-cp36m-win_amd64.whl`  
 Or, if that still doesn't work, try  
 `pip install torch===1.3.1 torchvision===0.4.2 -f https://download.pytorch.org/whl/torch_stable.html`
+and then re-run `pip install -r requirements.txt`
+* If an error is thrown similar to `error: (-215:Assertion failed) !empty() in function 'cv::CascadeClassifier::detectMultiScale'`, then find the path to the `haarcascade_frontalface_default.xml` file, and insert that in `src/models/detect_faces.py` at the top, instead of the path that's currently there.
