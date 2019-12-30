@@ -86,6 +86,9 @@ when running `main.py`, we
 
 When wanting to test a particular model, we can also directly call `python src/models/test_model models/my_model` where the argument should be the path to a trained model. This will print out the accuracy and loss for this model on the test data. 
 
+### Note on training
+When not using a GPU, training will be slow. As an example of how the code works, first set `use_existing = False` and `n_epochs = 3` in `main.py` to train a model for 3 epochs (this is also doable without GPU). Running `main.py` again with `use_existing = True` should now use this newly trained model to make predictions. Of course these predictions will be very bad, but it illustrates the flow of the code and outputs some nice images in `src/visualization`.
+
 ## Requirements
 
 
@@ -106,6 +109,11 @@ then, install the requirements
 `pip install -r requirements.txt`
 
 If an error for installing torch occurs, see trouble shooting.
+
+## Notebooks
+In the notebooks, the simple CNN model is trained using a GPU for about 90 epochs and a test accuracy of almost 50% is reached. This is not bad given that we have 133 different classes, and the CNN model is really quite simple. 
+
+Another notebook uses transfer learning and replaces the last dense layer of the VGG16 model to finetune it on our dog breed dataset.  Weights of earlier layers are frozen. This leads to a much higher accuracy (since the model is more complicated and has been trained on ImageNet). 
 
 ## The data
 #### dog data
