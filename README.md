@@ -55,3 +55,30 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+## How to use
+
+* Make sure the correct environment is set up (see set up environment)
+* Make sure the data is downloaded and in the correct place
+
+
+## The data
+#### dog data
+
+* The dog images are available at 
+`https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip` 
+* Once downloaded, unzip and put the `dogImages` folder in `data/raw`. There will automatically be train, test and valid folders inside the dogImages folder.
+
+#### Human data
+* Human images are available at 
+`https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/lfw.zip`
+* Once downloaded, unzip and put the folder into `data/raw`
+
+## Troubleshooting
+
+If there are problems installing `torch` (as there were for me initially), try this:  
+`pip3 install https://download.pytorch.org/whl/cu90/torch-1.1.0-cp36-cp36m-win_amd64.whl`  
+`pip3 install https://download.pytorch.org/whl/cu90/torchvision-0.3.0-cp36-cp36m-win_amd64.whl`
+
+Or, if that still doesn't work, try  
+`pip3 install torch===1.3.1 torchvision===0.4.2 -f https://download.pytorch.org/whl/torch_stable.html`
