@@ -27,9 +27,6 @@ Project Organization
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
     │   └── raw            <- The original, immutable data dump.
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
@@ -75,16 +72,17 @@ Project Organization
 
 ## How to use
 
-* Make sure the correct environment is set up (see requirements)
-* Make sure the data is downloaded and in the correct place
-* run `main.py` by calling `python main.py` from the root of the project. Make sure to set some of the parameters at the start of the file e.g. the number of epochs to run for and whether to train or use an existing model
+* make sure the requirements in requirements.txt are installed (see requirements below) and the virtual environment is activated
+* run `python -m ipykernel install --user --name dog_breed --display-name "Python (dog_breed)"` to be able to easily use the virtual environment in a jupyter notebook
+* Download the data and put the unzipped folders in `data/raw` (see the data section below)
+* run `python main.py` from the root of the project. Make sure to set some of the parameters at the start of the file e.g. the number of epochs to run for and whether to train or use an existing model
 
 when running `main.py`, we 
 1. either train a model or load a previously trained model
 2. print out the accuracy and loss of this model on test data
-3. predict breeds of some random images using the model, the predict outputs are saved in `src/visualization`
+3. predict breeds of some random images using the model, the predicted outputs are saved in `src/visualization`
 
-When wanting to test a particular model, we can also directly call `python src/models/test_model models/my_model` where the argument should be the path to a trained model. This will print out the accuracy and loss for this model on the test data. 
+When wanting to test a particular model, we can also directly call `python src/models/test_model models/my_model` where the argument (i.e. `models/my_model`) should be the path to a trained model. This will print out the accuracy and loss for this model on the test data. 
 
 ### Note on training
 When not using a GPU, training will be slow. As an example of how the code works, first set `use_existing = False` and `n_epochs = 3` in `main.py` to train a model for 3 epochs (this is also doable without GPU). Running `main.py` again with `use_existing = True` should now use this newly trained model to make predictions. Of course these predictions will be very bad, but it illustrates the flow of the code and outputs some nice images in `src/visualization`.
@@ -93,11 +91,8 @@ When not using a GPU, training will be slow. As an example of how the code works
 
 
 ##### Create virtual environment
-Create a virtual environment using (linux)  
+Create a virtual environment using
 `conda create -n dog_breed python=3.7.5`
- 
- or, for windows  
- `conda create -n dog_breed python=3.7.5 numpy==1.17.3`
 
 #### install other requirements
 `cd` into `dog_breed_classifier` (i.e. go to the root of the project), activate the virtual environment with 
@@ -108,14 +103,9 @@ then, install the requirements
 
 `pip install -r requirements.txt`
 
-If an error for installing torch occurs, see trouble shooting.
+If an error for installing torch occurs, follow the steps in the trouble shooting section below.
 
-## Notebooks
-In the notebooks, the simple CNN model is trained using a GPU for about 90 epochs and a test accuracy of almost 50% is reached. This is not bad given that we have 133 different classes, and the CNN model is really quite simple. 
-
-Another notebook uses transfer learning and replaces the last dense layer of the VGG16 model to finetune it on our dog breed dataset.  Weights of earlier layers are frozen. This leads to a much higher accuracy (since the model is more complicated and has been trained on ImageNet). 
-
-## The data
+## Data
 #### dog data
 
 * The dog images are available at 
@@ -126,6 +116,17 @@ Another notebook uses transfer learning and replaces the last dense layer of the
 * Human images are available at 
 `https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/lfw.zip`
 * Once downloaded, unzip and put the folder into `data/raw`
+
+## Notebooks
+
+There are three notebooks availabl in the `notebooks/` directory
+* `1_bla` creates a CNN from scratch to classify dogs. It goes through most of the code in the rest of the project step by step, and all the functions are defined within the notebook (this was before they were moved into python files). This notebook trained our CNN using a GPU for about 90 epochs and a test accuracy of almost 50% is reached. This is not bad given that we have 133 different classes, and the CNN model is really quite simple. 
+* `2_bla` performs similar steps as `1_bla` but now uses the functions within the rest of the project
+* `3_bla` uses a pre-trained VGG16 model to classify the dogs, we replace the last dense layer by a new dense layer with 133 outputs (the number of classes we have). Weights of earlier layers are frozen. It reaches a much higher accuracy than our CNN from scratch (which is not surprising since the model is more complicated and has been trained on ImageNet). . 
+
+To run the notebooks, just run `jupyter notebook` from within the virtual environment and this will open a web browser. The notebooks in `/notebooks/` can now be opened and run. Make sure to pick the correct virtual environment by changing the kernel in the top right (if it hasn't done so automatically). 
+
+
 
 ## Troubleshooting
 
