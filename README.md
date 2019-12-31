@@ -124,7 +124,7 @@ There are three notebooks availabl in the `notebooks/` directory
 * `2_bla` performs similar steps as `1_bla` but now uses the functions within the rest of the project
 * `3_bla` uses a pre-trained VGG16 model to classify the dogs, we replace the last dense layer by a new dense layer with 133 outputs (the number of classes we have). Weights of earlier layers are frozen. It reaches a much higher accuracy than our CNN from scratch (which is not surprising since the model is more complicated and has been trained on ImageNet). . 
 
-To run the notebooks, just run `jupyter notebook` from within the virtual environment and this will open a web browser. The notebooks in `/notebooks/` can now be opened and run. Make sure to pick the correct virtual environment by changing the kernel in the top right (if it hasn't done so automatically). 
+To run the notebooks, just run `jupyter notebook` from within the virtual environment and this will open a web browser. The notebooks in `/notebooks/` can now be opened and run. Make sure to pick the correct virtual environment by changing the kernel (go to `Kernel` --> `Change kernel` and pick the dog_breed kernel) which makes sure we can import from `src`. 
 
 
 
@@ -137,3 +137,4 @@ Or, if that still doesn't work, try
 `pip install torch===1.3.1 torchvision===0.4.2 -f https://download.pytorch.org/whl/torch_stable.html`
 and then re-run `pip install -r requirements.txt`
 * If an error is thrown similar to `error: (-215:Assertion failed) !empty() in function 'cv::CascadeClassifier::detectMultiScale'`, then find the path to the `haarcascade_frontalface_default.xml` file, and insert that in `src/models/detect_faces.py` at the top, instead of the path that's currently there.
+* If `src` is not recognized in the notebooks, make sure to set the virtual environment as the kernel (see the Notebooks section above). 
