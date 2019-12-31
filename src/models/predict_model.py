@@ -1,12 +1,15 @@
-from src.models import detect_faces, detect_dogs
+from src.models import detect_faces, detect_dogs, cnn_from_scratch
 from src.data.data_transformer import data_transform_bare
 from src.data import data_loader
+from src.utils import load_torch_model
+import sys
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from glob import glob
 import torch
+
 
 # get all file names and class names
 dog_files = np.array(glob("/data/dog_images/*/*/*"))
@@ -89,8 +92,29 @@ def create_prediction_fig(img_path: str, model_predict, class_names, save_image=
 
     if save_image:
         image_name = img_path.split("\\")[-1]
+        image_name = image_name.split("/")[-1]
         assert image_name[-4:] == ".jpg", f"Image {img_path} split by \\ should end in something.jpg"
         plt.savefig(f"src/visualization/prediction_{image_name}")
     if show_image:
         plt.show()
     plt.close()
+
+def main():
+    args = sys.argv[1:]
+    if len(args) != 2:
+        raise ValueError("Supply two arguments, 1) the path to the image we want to predict, "
+                         "2) the path to a model you want to predict with, e.g. call "
+                         "python src/models/predict_model.py data/raw/dogImages/test/001.Affenpinscher/Affenpinscher_00023.jpg models/my_model.pt")
+    model_path = args[1]
+    image_path = args[0]
+
+    model = cnn_from_scratch.Net()
+    load_torch_model.load_model(model, model_path)
+
+    print(f"Predicting with model {model_path} for image {image_path}. Figure will be saved to src/visualization")
+    class_names = data_loader.get_training_classnames()
+    create_prediction_fig(image_path, model, class_names=class_names)
+
+
+if __name__ == "__main__":
+    main()

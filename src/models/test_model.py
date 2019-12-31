@@ -1,7 +1,7 @@
 import numpy as np
 from src.data import data_loader
 from src.models import cnn_from_scratch
-from src.utils import criterion_functions
+from src.utils import criterion_functions, load_torch_model
 import sys
 import torch
 
@@ -52,13 +52,9 @@ def main():
     model_path = args[0]
     use_cuda = torch.cuda.is_available()
     criterion = criterion_functions.cross_entropy_loss()
-    model = cnn_from_scratch.Net()
 
-    try:
-        model.load_state_dict(torch.load(model_path))
-    except FileNotFoundError:
-        raise FileNotFoundError(f"No model found at {model_path}. Train a model first or "
-                                f"put an already-trained model there")
+    model = cnn_from_scratch.Net()
+    load_torch_model.load_model(model, model_path)
 
     print(f"Testing model {model_path} with cross entropy loss")
     test(model, criterion, use_cuda)
