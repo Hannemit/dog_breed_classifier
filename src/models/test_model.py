@@ -6,16 +6,17 @@ import sys
 import torch
 
 
-def test(model, criterion, use_cuda):
+def test(model, criterion, use_cuda: bool, test_data_path: str = ""):
     """
     Test our model, print out loss and accuracy on test data
     :param model: trained model
     :param criterion: pytorch loss function
     :param use_cuda: boolean, move to GPU or not
+    :param test_data_path: string, path to where the test data is situated.
     :return:
     """
     # get loader for test data
-    loader = data_loader.get_test_loader()
+    loader = data_loader.get_test_loader(path=test_data_path)
 
     # monitor test loss and accuracy
     test_loss = 0.

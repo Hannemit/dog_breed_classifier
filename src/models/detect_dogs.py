@@ -1,6 +1,7 @@
 import torchvision.transforms as transforms
 from PIL import ImageFile, Image
 import torch
+import torchvision.models as models
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 use_cuda = torch.cuda.is_available()
@@ -46,3 +47,13 @@ def dog_detector(img_path: str, model):
     """
     predicted_idx = vgg16_predict(img_path, model)
     return 151 <= predicted_idx <= 268
+
+
+def get_dog_detector_model():
+    # define VGG16 model
+    vgg16 = models.vgg16(pretrained=True)
+
+    # move model to GPU if cuda is available
+    if use_cuda:
+        vgg16 = vgg16.cuda()
+    return vgg16

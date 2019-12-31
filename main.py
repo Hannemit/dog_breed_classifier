@@ -64,8 +64,9 @@ if __name__ == "__main__":
 
     # predict some images
     print("Predicting for some sample images...")
+    class_names = data_loader.get_training_classnames()
     for dog_image in dog_files_sample:
         print(f"Predict for {dog_image}")
-        predict_model.create_prediction_fig(dog_image, model)
+        predict_model.create_prediction_fig(dog_image, model, class_names)
 
 

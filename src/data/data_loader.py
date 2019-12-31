@@ -28,15 +28,19 @@ def get_all_loaders(batch_size=15):
     return {'train': train_loader, 'valid': valid_loader, 'test': test_loader}
 
 
-def get_test_loader(batch_size=15):
-    return get_loader(TEST_DATA_PATH, data_transformer.data_transform_bare, batch_size=batch_size, num_workers=0)
+def get_test_loader(batch_size=15, path=""):
+    if not path:
+        path = TEST_DATA_PATH
+    return get_loader(path, data_transformer.data_transform_bare, batch_size=batch_size, num_workers=0)
 
 
-def get_training_classnames():
+def get_training_classnames(data_path=""):
     """
     Get the names of all the classes that are present in the training data
     :return: array of strings, each string i sa class name (a breed of dog)
     """
-    data = datasets.ImageFolder(TRAIN_DATA_PATH, transform=data_transformer.data_transform_from_scratch)
+    if not data_path:
+        data_path = TRAIN_DATA_PATH
+    data = datasets.ImageFolder(data_path, transform=data_transformer.data_transform_from_scratch)
     class_names = np.array([item[4:].replace("_", " ") for item in data.classes])
     return class_names

@@ -6,28 +6,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from glob import glob
-import torchvision.models as models
 import torch
 
 # get all file names and class names
 dog_files = np.array(glob("/data/dog_images/*/*/*"))
-class_names = data_loader.get_training_classnames()
 use_cuda = torch.cuda.is_available()
-
-def get_dog_detector_model():
-    # define VGG16 model
-    vgg16 = models.vgg16(pretrained=True)
-
-    # move model to GPU if cuda is available
-    if use_cuda:
-        vgg16 = vgg16.cuda()
-    return vgg16
+dog_detector_model = detect_dogs.get_dog_detector_model()
 
 
-dog_detector_model = get_dog_detector_model()
-
-
-def get_top_predictions(img_path: str, model):
+def get_top_predictions(img_path: str, model, class_names):
     model.eval()
 
     image = Image.open(img_path).convert('RGB')
@@ -44,7 +31,7 @@ def get_top_predictions(img_path: str, model):
     return top_probs, class_names[top_idx.cpu().numpy()[0]]
 
 
-def create_prediction_fig(img_path: str, model_predict):
+def create_prediction_fig(img_path: str, model_predict, class_names, save_image=True, show_image=False):
 
     # initialise, set model in evaluation stage (no dropout used, etc..)
     model_predict.eval()
@@ -62,7 +49,7 @@ def create_prediction_fig(img_path: str, model_predict):
         raise Exception(f"No human or dog detected in {img_path}... supply an image with a human or a dog")
 
     image = Image.open(img_path)
-    probs, dog_names = get_top_predictions(img_path, model_predict)
+    probs, dog_names = get_top_predictions(img_path, model_predict, class_names)
 
     if is_human and is_dog:
         title = 'Both human and dog detected... This human/dog is predicted to be a .... {}!'.format(dog_names[0])
@@ -100,7 +87,10 @@ def create_prediction_fig(img_path: str, model_predict):
 
     plt.tight_layout()
 
-    image_name = img_path.split("\\")[-1]
-    assert image_name[-4:] == ".jpg", f"Image {img_path} split by \\ should end in something.jpg"
-    plt.savefig(f"src/visualization/prediction_{image_name}")
+    if save_image:
+        image_name = img_path.split("\\")[-1]
+        assert image_name[-4:] == ".jpg", f"Image {img_path} split by \\ should end in something.jpg"
+        plt.savefig(f"src/visualization/prediction_{image_name}")
+    if show_image:
+        plt.show()
     plt.close()
