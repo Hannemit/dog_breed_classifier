@@ -119,14 +119,12 @@ If an error for installing torch occurs, follow the steps in the trouble shootin
 
 ## Notebooks
 
-There are three notebooks availabl in the `notebooks/` directory
-* `1_bla` creates a CNN from scratch to classify dogs. It goes through most of the code in the rest of the project step by step, and all the functions are defined within the notebook (this was before they were moved into python files). This notebook trained our CNN using a GPU for about 90 epochs and a test accuracy of almost 50% is reached. This is not bad given that we have 133 different classes, and the CNN model is really quite simple. 
-* `2_bla` performs similar steps as `1_bla` but now uses the functions within the rest of the project
-* `3_bla` uses a pre-trained VGG16 model to classify the dogs, we replace the last dense layer by a new dense layer with 133 outputs (the number of classes we have). Weights of earlier layers are frozen. It reaches a much higher accuracy than our CNN from scratch (which is not surprising since the model is more complicated and has been trained on ImageNet). . 
+There are three notebooks availabl in the `notebooks/` directory. The first notebook is slightly messy, and much of it is repeated and the other two notebooks (the other two notebooks are a bit neater and use code that is rewritten and put into python files, rather than defined within the notebook). 
+* `1_dog_app_pytorch` creates a CNN from scratch to classify dogs. It goes through most of the code in the rest of the project step by step, and all the functions are defined within the notebook (this was before they were moved into python files). This notebook trained our CNN using a GPU for about 90 epochs and a test accuracy of almost 50% is reached. This is not bad given that we have 133 different classes, and the CNN model is really quite simple. 
+* `2_cnn_from_scratch` performs similar steps as `1_dog_app_pytorch` but now uses the functions within the rest of the project. We create a CNN from scratch
+* `3_vgg16_transfer` uses a pre-trained VGG16 model to classify the dogs, we replace the last dense layer by a new dense layer with 133 outputs (the number of classes we have). Weights of earlier layers are frozen. It reaches a much higher accuracy than our CNN from scratch (which is not surprising since the model is more complicated and has been trained on ImageNet). . 
 
 To run the notebooks, just run `jupyter notebook` from within the virtual environment and this will open a web browser. The notebooks in `/notebooks/` can now be opened and run. Make sure to pick the correct virtual environment by changing the kernel (go to `Kernel` --> `Change kernel` and pick the dog_breed kernel) which makes sure we can import from `src`. 
-
-
 
 ## Troubleshooting
 
@@ -138,3 +136,6 @@ Or, if that still doesn't work, try
 and then re-run `pip install -r requirements.txt`
 * If an error is thrown similar to `error: (-215:Assertion failed) !empty() in function 'cv::CascadeClassifier::detectMultiScale'`, then find the path to the `haarcascade_frontalface_default.xml` file, and insert that in `src/models/detect_faces.py` at the top, instead of the path that's currently there.
 * If `src` is not recognized in the notebooks, make sure to set the virtual environment as the kernel (see the Notebooks section above). 
+
+## TODO:
+* update the project structure, remove unused folders 
