@@ -30,6 +30,10 @@ var/
 /data/raw/*
 !/data/raw/*.zip
 
+# ignore trained models
+!/models/
+/models/*
+
 # exclude figures
 *.jpg
 *.png
