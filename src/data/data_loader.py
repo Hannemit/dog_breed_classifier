@@ -12,12 +12,27 @@ TEST_DATA_PATH = "data/raw/dogImages/test"
 
 
 def get_loader(path_to_images, transformer, batch_size, num_workers, shuffle=True):
+    """
+    get dataloaders for the specified images with given transformers, batch size, etc..
+    :param path_to_images: string, path to where the images are that we want in our loader
+    :param transformer: a transformer from torchvision.transforms. It tells us how each image is transformed as it is
+                loaded
+    :param batch_size: int, batch size
+    :param num_workers: int, number of workers
+    :param shuffle: boolean, if True then randomly shuffle the images
+    :return: torch data loader
+    """
     data = datasets.ImageFolder(path_to_images, transform=transformer)
     loader = torch.utils.data.DataLoader(data, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
     return loader
 
 
 def get_all_loaders(batch_size=15):
+    """
+    get the train, validation and test loaders
+    :param batch_size: int, batch size to use
+    :return: dict, with keys "train", "valid" and "test".
+    """
     train_transformer = data_transformer.data_transform_from_scratch
     test_valid_transformer = data_transformer.data_transform_bare
 
