@@ -40,11 +40,8 @@ class Net(nn.Module):
         """
         # Define forward behavior
         x = self.conv1_bn(self.pool(F.relu(self.conv1(x))))  # 3x224x224 ---> 16x112x112
-
         x = self.conv2_bn(self.pool(F.relu(self.conv2(x))))  # 16x112x112 ---> 32x56x56
-        # x = F.relu(self.conv2b(x)) #64x56x56 ---> 64x56x56
         x = self.conv3_bn(self.pool(F.relu(self.conv3(x))))  # 32x56x56 ---> 64x28x28
-        # x = F.relu(self.conv3b(x)) #128x28x28 ---> 128x28x28
         x = self.conv4_bn(self.pool(F.relu(self.conv4(x))))  # 64x28x28 ---> 128x14x14
         x = self.conv5_bn(self.pool(F.relu(self.conv5(x))))  # 128x14x14 ---> 256x7x7
 
@@ -52,7 +49,6 @@ class Net(nn.Module):
         x = x.view(-1, 256 * 7 * 7)
         x = self.dropout(F.relu(self.fc1(x)))
         x = self.dropout(F.relu(self.fc2(x)))
-        # x = self.dropout(F.relu(self.fc3(x)))
 
         x = self.fc3(x)
 
