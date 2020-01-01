@@ -109,7 +109,7 @@ then, install the requirements
 
 `pip install -r requirements.txt`
 
-If an error for installing torch occurs, follow the steps in the trouble shooting section below.
+If an error for installing torch occurs, follow the steps in the trouble shooting section below. NOTE: make sure the path to the `haarcascade_frontalface_alt.xml` file in `src/models/detect_faces.py` is correct, she the Troubleshooting section for more details on this. 
 
 ## Data
 #### dog data
@@ -121,7 +121,7 @@ If an error for installing torch occurs, follow the steps in the trouble shootin
 #### Human data
 * Human images are available at 
 `https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/lfw.zip`
-* Once downloaded, unzip and put the folder into `data/raw`
+* Once downloaded, unzip and put the `lfw` folder into `data/raw` (note, if there's another `lfw` folder in the `lfw` folder, then only put the inner-most in `data/raw`.
 
 ## Notebooks
 
