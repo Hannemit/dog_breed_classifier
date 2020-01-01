@@ -136,6 +136,14 @@ There are three notebooks availabl in the `notebooks/` directory. The first note
 
 To run the notebooks, just run `jupyter notebook` from within the virtual environment and this will open a web browser. The notebooks in `/notebooks/` can now be opened and run. Make sure to pick the correct virtual environment by changing the kernel (go to `Kernel` --> `Change kernel` and pick the dog_breed kernel) which makes sure we can import from `src`. 
 
+## Conclusion
+Classifying dog breeds is hard, I probably can't get 100% accuracy myself! Nevertheless, we have shown that a simple CNN can perform a very decent job. Sure, using a pre-trained model still works better, but I was surprised about how "easy" it was to write a model myself which clearly learns a lot. 
+
+It doesn't take long to write the CNN in PyTorch at all, most of the time will be dedicated to tweaking parameters and experimenting with the number of layers (and of course waiting for the training results). I found out that:
+* increasing the number of filters too quickly is not always a good idea
+* a too-large batch size can also lead to worse results
+* Increasing the number of convolutional layers increased my accuracy, though the returns are diminishing.
+
 ## Troubleshooting
 
 * If there are problems installing `torch` (as there were for me initially), try this:  
