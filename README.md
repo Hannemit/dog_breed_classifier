@@ -31,7 +31,7 @@ Model architecture choices
 --------------
 For the CNN model we build ourselves, the final architecture is shown in the figure below. There are five convolutional layers in total, after each convolution we i) apply a ReLu activation function, ii) perform a max-pooling to downsize the image by a factor of 2 in both the x and y dimension, iii) perform batch normalization. Dropout is used after the first two fully connected layers. 
 
-![Alt text](./src/visualization/cnn_arch.png?raw=true "")
+![](./src/visualization/cnn_arch.png?raw=true "")
 
 A number of different architectures were tried out, varying the number of convolutional layers, the number of fully connected layers, how to vary the number of channels, whether to use batch normalization or not, etc..  The final architecture used is the one that seemed to work best out of the ones that were tried. 
 
