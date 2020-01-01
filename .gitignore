@@ -39,7 +39,7 @@ var/
 *.png
 
 # include cnn architecture picture
-!/src/visualization/cnn_arch.png
+!/src/visualization/cnn_architecture_test.png
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
