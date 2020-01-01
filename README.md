@@ -1,7 +1,11 @@
 Dog breed classifier
 ==============================
 
-In this project we use a CNN to predict dog breeds. Our data is as follows:
+In this project, we will try to predict dog breeds. Given an image of a dog, what breed of dog is it? 
+
+This kind of problem is perfect for Convolutional Neural Networks (CNNs). We will therefore construct a CNN (two, actually!) and we expect that these models will perform a decent job at classifying dogs. They will not be perfect, but we should definitely be able to do a lot better than random chance. 
+
+Our data is as follows:
 * 8351 different dog images
 * consisting of 133 different breeds
 
@@ -27,9 +31,13 @@ Results
 * Using our CNN from scratch, we reach 47% accuracy. This is pretty good, considering the relatively simple architecture (see below) and the fact that random chance (ignoring class imbalances) would have given us only 1% accuracy
 * Using our fine-tuned VGG16 model, we reach about 85% accuracy
 
+The performance of our models during training is measured by using the cross entropy loss, a standard loss function for classification problems. 
+
 Below is an example of a correct prediction! The input image is shown (left), together with a bar plot of the top 5 most likely dog breeds, as well as an example of the overall most likely breed (right). This visualization is created in `src/models/predict_model.py`, more examples are shown in the notebooks.
 
 ![](./src/visualization/prediction_Affenpinscher_00069.jpg?raw=true "")
+
+
 
 Model architecture choices
 --------------
@@ -126,6 +134,8 @@ If an error for installing torch occurs, follow the steps in the trouble shootin
 * Human images are available at 
 `https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/lfw.zip`
 * Once downloaded, unzip and put the `lfw` folder into `data/raw` (note, if there's another `lfw` folder in the `lfw` folder, then only put the inner-most in `data/raw`.
+
+No real pre-processing is required for this data. The only processing we do is when we define our data transformers in pytorch, which will transform each input image before it goes into the CNN. These transformations include things like resizing the image, rotating it, scaling it, etc.. and they are used to augment the dataset and to prevent overfitting.
 
 ## Notebooks
 
