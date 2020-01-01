@@ -33,7 +33,16 @@ For the CNN model we build ourselves, the final architecture is shown in the fig
 
 ![](./src/visualization/cnn_architecture.png?raw=true "")
 
-A number of different architectures were tried out, varying the number of convolutional layers, the number of fully connected layers, how to vary the number of channels, whether to use batch normalization or not, etc..  The final architecture used is the one that seemed to work best out of the ones that were tried. 
+
+A number of different architectures were tried out, such as:
+* 3, 4 or 5 convolutional layers
+* batch normalization or not after the convolutional layers
+* a learning rate of 0.01/0.005/0.001/0.0005 for the Adam optimizer.
+* various output sizes of the fully connected layers, to get towards the final size of 133
+
+The final architecture used is the one that seemed to work best out of the ones that were tried. 
+
+
 
 
 Project Organization
@@ -100,7 +109,7 @@ then, install the requirements
 
 `pip install -r requirements.txt`
 
-If an error for installing torch occurs, follow the steps in the trouble shooting section below.
+If an error for installing torch occurs, follow the steps in the trouble shooting section below. NOTE: make sure the path to the `haarcascade_frontalface_alt.xml` file in `src/models/detect_faces.py` is correct, she the Troubleshooting section for more details on this. 
 
 ## Data
 #### dog data
@@ -112,7 +121,7 @@ If an error for installing torch occurs, follow the steps in the trouble shootin
 #### Human data
 * Human images are available at 
 `https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/lfw.zip`
-* Once downloaded, unzip and put the folder into `data/raw`
+* Once downloaded, unzip and put the `lfw` folder into `data/raw` (note, if there's another `lfw` folder in the `lfw` folder, then only put the inner-most in `data/raw`.
 
 ## Notebooks
 
@@ -133,6 +142,3 @@ Or, if that still doesn't work, try
 and then re-run `pip install -r requirements.txt`
 * If an error is thrown similar to `error: (-215:Assertion failed) !empty() in function 'cv::CascadeClassifier::detectMultiScale'`, then find the path to the `haarcascade_frontalface_default.xml` file, and insert that in `src/models/detect_faces.py` at the top, instead of the path that's currently there.
 * If `src` is not recognized in the notebooks, make sure to set the virtual environment as the kernel (see the Notebooks section above). 
-
-## TODO
-* put some more specifics about what parameters I varied
