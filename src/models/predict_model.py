@@ -102,17 +102,19 @@ def create_prediction_fig(img_path: str, model_predict, class_names, save_image=
 
     axs[0].imshow(image)
     if use_sup_title:
-        fig.suptitle(title)
+        fig.suptitle(title + "\n")
+        axs[0].set_title("Input image with both dog and human!")
     else:
         axs[0].set_title(title)
     axs[0].axis('off')
 
-    plt.tight_layout()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
     if save_image:
         image_name = img_path.split("\\")[-1]
         image_name = image_name.split("/")[-1]
-        assert image_name[-4:] == ".jpg", f"Image {img_path} split by \\ should end in something.jpg"
+        assert image_name[-4:] == ".jpg" or image_name[-4:] == ".png", \
+            f"Image {img_path} split by \\ should end in something.jpg or .png"
         plt.savefig(f"src/visualization/prediction_{image_name}")
     if show_image:
         plt.show()

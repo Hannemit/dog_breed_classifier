@@ -37,6 +37,7 @@ var/
 # exclude figures
 *.jpg
 *.png
+*.svg
 
 # include cnn architecture picture, and one prediction image
 !/src/visualization/cnn_architecture.png
