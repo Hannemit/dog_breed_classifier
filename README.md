@@ -1,4 +1,4 @@
-dog breed classifier
+Dog breed classifier
 ==============================
 
 In this project we use a CNN to predict dog breeds. Our data is as follows:
