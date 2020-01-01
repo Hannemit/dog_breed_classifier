@@ -27,6 +27,10 @@ Results
 * Using our CNN from scratch, we reach 47% accuracy. This is pretty good, considering the relatively simple architecture (see below) and the fact that random chance (ignoring class imbalances) would have given us only 1% accuracy
 * Using our fine-tuned VGG16 model, we reach about 85% accuracy
 
+Below is an example of a correct prediction! The input image is shown (left), together with a bar plot of the top 5 most likely dog breeds, as well as an example of the overall most likely breed (right). This visualization is created in `src/models/predict_model.py`, more examples are shown in the notebooks.
+
+![](./src/visualization/prediction_Affenpinscher_00069.jpg?raw=true "")
+
 Model architecture choices
 --------------
 For the CNN model we build ourselves, the final architecture is shown in the figure below. There are five convolutional layers in total, after each convolution we i) apply a ReLu activation function, ii) perform a max-pooling to downsize the image by a factor of 2 in both the x and y dimension, iii) perform batch normalization. Dropout is used after the first two fully connected layers. 
