@@ -1,9 +1,15 @@
 dog breed classifier
 ==============================
 
-In this project we use a CNN to predict dog breeds. In total, we have 133 classes (the breeds) and a new images is classified as one of these. Specifically, we:
+In this project we use a CNN to predict dog breeds. Our data is as follows:
+* 8351 different dog images
+* consisting of 133 different breeds
 
-1. train a simple CNN (just a handful of convolutional layers and a few dense layers)
+We want to train a CNN to take an image as an input, and predict a probability for each of the 133 different classes (breeds). We can then also feed the model an image of a human, to find the dogs he/she/other_pronoun resembles most!
+
+Specifically, we:
+
+1. train a simple CNN (just a handful of convolutional layers and a few dense layers) which we build from scratch using PyTorch
 2. define a human face detector to detect whether a human face is in an image (we use a pre-trained face detector)
 3. define a dog detector, detecting whether a dog is present in an image (using a pre-trained VGG16 model)
 
@@ -12,36 +18,32 @@ Given a completely new image, we then
 * find out whether the image is of a dog
 * Depending on the outcome of the above steps, we do the following:  
     * no dog and no human --> throw an error, a better image needs to be supplied
-    * human and no dog    --> find the closest dog breed to this human using our trained CNN. Output a nice figure with human and closest dog breed
-    * dog and no human --> predict the dog breed using our trained CNN. Output a nice figure showing the closest dog breed
-    * human and dog --> do same for if human and print out some extra messages
+    * otherwise --> find the closest dog breed to the input human or input dog, and output a nice figure showing the top 5             breeds
     
-  
+We then create another CNN, using a pre-trained VGG16 model. Using transfer learning, we are able to create a model that performs quite well. We remove the last dense layer of VGG16 (as it was originally trained to predict for 1000 classes on ImageNet data) and replace it with a dense layer with 133 outputs. We freeze all the weights and only fine-tune the last layer using our data. 
 
-Additionally, we will first detect whether a human is present in the image (if so, we'll output a slightly different figure which shows the closest dog breeds to that human). 
+Results
+---------------
+* Using our CNN from scratch, we reach 47% accuracy. This is pretty good, considering the relatively simple architecture (see below) and the fact that random chance (ignoring class imbalances) would have given us only 1% accuracy
+* Using our fine-tuned VGG16 model, we reach about 85% accuracy
+
+Model architecture choices
+--------------
+For the CNN model we build ourselves, the final architecture is shown in the figure below. A number of different architectures were tried out, varying the number of convolutional layers, the number of fully connected layers, how to vary the number of channels, whether to use batch normalization or not, etc..  The final architecture used is the one that seemed to work best out of the ones that were tried. 
+
 
 Project Organization
 ------------
 
     ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   └── raw            <- The original, immutable data dump.
     │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
+    │                          e.g.`1_initial_data_exploration`.
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
     │
@@ -49,21 +51,12 @@ Project Organization
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
+    │   ├── data           <- Scripts to download or generate data. In this project we just use it to create our data loaders
     │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
+    │   ├── models         <- Scripts to train models and then use trained models to make predictions
     │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
+    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations, we also save figures here
+    └── 
 
 
 --------
@@ -137,5 +130,5 @@ and then re-run `pip install -r requirements.txt`
 * If an error is thrown similar to `error: (-215:Assertion failed) !empty() in function 'cv::CascadeClassifier::detectMultiScale'`, then find the path to the `haarcascade_frontalface_default.xml` file, and insert that in `src/models/detect_faces.py` at the top, instead of the path that's currently there.
 * If `src` is not recognized in the notebooks, make sure to set the virtual environment as the kernel (see the Notebooks section above). 
 
-## TODO:
-* update the project structure, remove unused folders 
+## TODO
+* put some more specifics about what parameters I varied
