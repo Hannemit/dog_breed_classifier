@@ -38,8 +38,9 @@ var/
 *.jpg
 *.png
 
-# include cnn architecture picture
-!/src/visualization/cnn_arch.png
+# include cnn architecture picture, and one prediction image
+!/src/visualization/cnn_architecture.png
+!/src/visualization/prediction_Affenpinscher_00069.jpg
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

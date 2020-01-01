@@ -2,7 +2,7 @@ import cv2
 
 
 # extract pre-trained face detector
-face_cascade = cv2.CascadeClassifier('C:\ProgramData\Anaconda3\envs\dog_breed\Lib\site-packages\cv2\data\haarcascade_frontalface_alt.xml')
+face_cascade = cv2.CascadeClassifier('/home/hanne/anaconda3/envs/dog_breed/lib/python3.7/site-packages/cv2/data/haarcascade_frontalface_alt.xml')
 
 
 def face_detector(img_path: str):
