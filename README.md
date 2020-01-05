@@ -20,9 +20,7 @@ Specifically, we:
 Given a completely new image, we then
 * find out whether the image is of a human
 * find out whether the image is of a dog
-* Depending on the outcome of the above steps, we do the following:  
-    * no dog and no human --> throw an error, a better image needs to be supplied
-    * otherwise --> find the closest dog breed to the input human or input dog, and output a nice figure showing the top 5             breeds
+* ind the closest dog breed to the input image and output a nice figure showing the top 5 most likely breeds. The title of the image will be different depending on whether a dog, a human, both or neither were detected.
     
 We then create another CNN, using a pre-trained VGG16 model. Using transfer learning, we are able to create a model that performs quite well. We remove the last dense layer of VGG16 (as it was originally trained to predict for 1000 classes on ImageNet data) and replace it with a dense layer with 133 outputs. We freeze all the weights and only fine-tune the last layer using our data. 
 
