@@ -70,34 +70,33 @@ def create_prediction_fig(img_path: str, model_predict, class_names, save_image=
     if detect_dogs.dog_detector(img_path, dog_detector_model):
         is_dog = True
 
-    if not is_human and not is_dog:
-        raise Exception(f"No human or dog detected in {img_path}... supply an image with a human or a dog")
-
     image = Image.open(img_path)
     probs, dog_names = get_top_predictions(img_path, model_predict, class_names)
 
-    if is_human and is_dog:
-        title = 'Both human and dog detected... This human/dog is predicted to be a .... {}!'.format(dog_names[0])
+    if not is_human and not is_dog:
+        title = f"This creature looks like a .. {dog_names[0]}!"
+    elif is_human and is_dog:
+        title = f"Both human and dog detected... This human/dog is predicted to be a .... {dog_names[0]}!"
         use_sup_title = True
     elif is_human:
-        title = 'This human looks like a ...{}!'.format(dog_names[0])
+        title = f"This human looks like a ...{dog_names[0]}!"
     else:
-        title = 'This dog is predicted to be a .... {}!'.format(dog_names[0])
+        title = f"This dog is predicted to be a .... {dog_names[0]}!"
 
-    top_dog = dog_names[0].replace(' ', '_')
+    top_dog = dog_names[0].replace(" ", "_")
     dog_image_idx = np.where([top_dog in name for name in dog_files])[0][0]
     image_dog = Image.open(dog_files[dog_image_idx])
 
     fig, axs = plt.subplots(1, 3, figsize=(15, 5))
     axs = axs.ravel()
     axs[2].imshow(image_dog)
-    axs[2].axis('off')
+    axs[2].axis("off")
     axs[2].set_title(f"Example of {dog_names[0]}")
 
     xs = np.arange(1, len(probs) + 1)
     axs[1].set_xticks(xs)
-    axs[1].bar(xs, probs, align='center', alpha=0.5)
-    axs[1].set_xticklabels(dog_names, rotation='vertical', fontsize=10)
+    axs[1].bar(xs, probs, align="center", alpha=0.5)
+    axs[1].set_xticklabels(dog_names, rotation="vertical", fontsize=10)
     axs[1].set_title("Top dog predictions")
 
     axs[0].imshow(image)
@@ -106,14 +105,14 @@ def create_prediction_fig(img_path: str, model_predict, class_names, save_image=
         axs[0].set_title("Input image with both dog and human!")
     else:
         axs[0].set_title(title)
-    axs[0].axis('off')
+    axs[0].axis("off")
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
     if save_image:
         image_name = img_path.split("\\")[-1]
         image_name = image_name.split("/")[-1]
-        assert image_name[-4:] == ".jpg" or image_name[-4:] == ".png", \
+        assert image_name[-4:] == ".jpg" or image_name[-4:] == ".png" or image_name[-5:] == ".jpeg", \
             f"Image {img_path} split by \\ should end in something.jpg or .png"
         plt.savefig(f"src/visualization/prediction_{image_name}")
     if show_image:

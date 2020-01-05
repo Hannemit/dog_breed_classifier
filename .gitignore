@@ -38,6 +38,7 @@ var/
 *.jpg
 *.png
 *.svg
+*jpeg
 
 # include cnn architecture picture, and one prediction image
 !/src/visualization/cnn_architecture.png
