@@ -119,7 +119,7 @@ then, install the requirements
 
 `pip install -r requirements.txt`
 
-If an error for installing torch occurs, follow the steps in the trouble shooting section below. NOTE: make sure the path to the `haarcascade_frontalface_alt.xml` file in `src/models/detect_faces.py` is correct, she the Troubleshooting section for more details on this. 
+If an error for installing torch occurs, follow the steps in the trouble shooting section below. NOTE: make sure the path to the `haarcascade_frontalface_alt.xml` file in `src/models/detect_faces.py` is correct, see the Troubleshooting section for more details on this. 
 
 ## Data
 #### dog data
@@ -137,7 +137,7 @@ No real pre-processing is required for this data. The only processing we do is w
 
 ## Notebooks
 
-There are three notebooks availabl in the `notebooks/` directory. The first notebook is slightly messy, and much of it is repeated and the other two notebooks (the other two notebooks are a bit neater and use code that is rewritten and put into python files, rather than defined within the notebook). 
+There are three notebooks available in the `notebooks/` directory. The first notebook is slightly messy, and much of it is repeated in the other two notebooks (the other two notebooks are a bit neater and use code that is rewritten and put into python files, rather than defined within the notebook). 
 * `1_dog_app_pytorch` creates a CNN from scratch to classify dogs. It goes through most of the code in the rest of the project step by step, and all the functions are defined within the notebook (this was before they were moved into python files). This notebook trained our CNN using a GPU for about 90 epochs and a test accuracy of almost 50% is reached. This is not bad given that we have 133 different classes, and the CNN model is really quite simple. 
 * `2_cnn_from_scratch` performs similar steps as `1_dog_app_pytorch` but now uses the functions within the rest of the project. We create a CNN from scratch
 * `3_vgg16_transfer` uses a pre-trained VGG16 model to classify the dogs, we replace the last dense layer by a new dense layer with 133 outputs (the number of classes we have). Weights of earlier layers are frozen. It reaches a much higher accuracy than our CNN from scratch (which is not surprising since the model is more complicated and has been trained on ImageNet). . 
